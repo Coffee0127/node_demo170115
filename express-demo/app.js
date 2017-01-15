@@ -4,8 +4,15 @@ var app = express();
 // static files
 app.use(express.static(__dirname + '/public'));
 
+// set Render engine
+app.set('view engine', 'pug');
+// by default, scanning "view" folder
+app.set('views', __dirname + '/views');
+
+// home route
 app.get('/', (req, res) => {
-    res.send('hi');
+    // 不需要加註附檔名
+    res.render('index');
 });
 
 // parameters needed
