@@ -4,8 +4,9 @@ var app = express();
 app.get('/', (req, res) => {
     res.send('hi');
 });
-app.get('/user', (req, res) => {
-    res.send('Hello user');
+app.get('/user/:name', (req, res) => {
+    var name = req.params.name;
+    res.send('Hello ' + name);
 });
 
 app.listen(3000, () => {
