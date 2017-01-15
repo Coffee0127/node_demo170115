@@ -23,11 +23,19 @@ app.set('views', __dirname + '/views');
 // var indexRoute = require('./routes/indexRoute.js');
 // app.user('/', indexRoute);
 
+// intercept all request
+// app.all('/*', langCheck, function (req, res, next) {
+//     console.log('Intercepting requests ...');
+//     next();  // call next() here to move on to next middleware/router
+// });
+
 // set route via foreach loop
 fs.readdirSync(__dirname + '/routes').forEach((fileName) => {
     fileName = fileName.slice(0, -3);
     fileName = require('./routes/' + fileName + '.js');
     app.use('/', fileName);
+    // or add langCheck via for loop
+    app.use('/', langCheck, fileName);
 });
 
 // parameters not needed with '?'
