@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var fs = require('fs');
 
 // static files
 app.use(express.static(__dirname + '/public'));
@@ -9,22 +10,15 @@ app.set('view engine', 'pug');
 // by default, scanning "view" folder
 app.set('views', __dirname + '/views');
 
-// home route
-app.get('/', (req, res) => {
-    // 不需要加註附檔名
-    res.render('index');
-});
+// set route for indexRoute
+// var indexRoute = require('./routes/indexRoute.js');
+// app.user('/', indexRoute);
 
-// parameters needed
-app.get('/user/:name', (req, res) => {
-    var name = req.params.name;
-    // could find user via database
-    var movie = {
-        title: 'Titanic',
-        year: 1997,
-        director: 'James Cameron'
-    };
-    res.render('user', { user: name, movie: movie });
+// set route via foreach loop
+fs.readdirSync(__dirname + '/routes').forEach((fileName) => {
+    fileName = fileName.slice(0, -3);
+    fileName = require('./routes/' + fileName + '.js');
+    app.use('/', fileName);
 });
 
 // parameters not needed with '?'
