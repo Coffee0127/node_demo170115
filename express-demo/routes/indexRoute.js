@@ -1,7 +1,6 @@
 var express = require('express');
 // Router() express built-in function
 var router = express.Router();
-var langCheck = require('../middleware/langCheck')
 
 // 註冊 langCheck RequestHandler
 router.get('/', (req, res) => {
