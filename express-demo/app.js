@@ -18,7 +18,13 @@ app.get('/', (req, res) => {
 // parameters needed
 app.get('/user/:name', (req, res) => {
     var name = req.params.name;
-    res.send(`Hello ${name}`);
+    // could find user via database
+    var movie = {
+        title: 'Titanic',
+        year: 1997,
+        director: 'James Cameron'
+    };
+    res.render('user', { user: name, movie: movie });
 });
 
 // parameters not needed with '?'
