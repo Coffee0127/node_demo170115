@@ -1,26 +1,26 @@
 var fs = require('fs');
+var renderEngine = require('./renderEngine');
 
-function route(req, res) {
+function route(req, res, user) {
     if (req.method == 'GET') {
         let fileName = '';
+        let data = '';
         res.statusCode = 200;
         res.setHeader('Content-TYpe', 'text/html');
         switch (req.url) {
             case '/':
-                fileName = 'index.html';
+                fileName = 'index';
                 break;
             case '/user':
-                fileName = 'user.html';
+                fileName = 'user';
+                data = { name: 'Xuan' };
                 break;
             default:
-                fileName = '404.html';
+                fileName = '404';
                 break;
         }
-        fs.readFile(fileName, (err, data) => {
-            if (err) throw err;
-            res.write(data);
-            res.end();
-        });
+
+        renderEngine.render(fileName, data, res);
     }
 }
 
