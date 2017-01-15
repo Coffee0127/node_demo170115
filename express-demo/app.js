@@ -1,6 +1,15 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var langCheck = require('./middleware/langCheck');
+
+// cookies
+app.use(cookieParser());
+// body parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // static files
 app.use(express.static(__dirname + '/public'));
