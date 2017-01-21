@@ -3,6 +3,16 @@ var app = express();
 var mongoose = require('mongoose');
 var fs = require('fs');
 
+// INCLUDE ROUTES
+fs.readdirSync(__dirname + '/routes').forEach((fileName) => {
+  fileName = fileName.slice(0, -3);
+  fileName = require('./routes/' + fileName + '.js');
+  app.use('/', fileName);
+});
+
+// SET VIEW ENGINE
+app.set('view engine', 'pug');
+
 // INCLUDE ALL MODELS INSIDE MODEL FOLDER
 fs.readdirSync(__dirname + '/models').forEach((fileName) => {
   if (~fileName.indexOf('.js')) {
