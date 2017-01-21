@@ -2,9 +2,13 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 var fs = require('fs');
+var bodyParser = require('body-parser');
 
 // SET VIEW ENGINE
 app.set('view engine', 'pug');
+// body parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // INCLUDE ALL MODELS INSIDE MODEL FOLDER
 fs.readdirSync(__dirname + '/models').forEach((fileName) => {

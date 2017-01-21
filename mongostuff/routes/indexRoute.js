@@ -14,5 +14,24 @@ router.get('/', (req, res) => {
   });
 });
 
+// SEARCH FOR MOVIE
+router.post('/search', (req, res, next) => {
+  var query = req.body.title;
+  movieSchema.find({ title: new RegExp(query, 'i') }, (err, data) => {
+    res.render('index', { movie: data });
+  });
+});
+
+// ADD NEW MOVIE
+router.post('/', (req, res, next) => {
+  var movie = new movieSchema({
+    title: req.body.title
+  });
+  movie.save((err) => {
+    console.log(err);
+  });
+  res.render('index', { movie: movie });
+});
+
 // 擴充 express，而非 export function
 module.exports = router;

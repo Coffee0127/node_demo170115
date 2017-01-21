@@ -1,4 +1,14 @@
 |Hello World
 br
-- for (var i = 0; i < movie.length; i++)
-  p #{movie[i].title}
+form(method="post", action="/search")
+  div search for movie
+  input(name="title")
+  button submit
+|Add movie
+form(method="post")
+  div movie
+  input(name="title")
+  button submit
+
+div(style="margin-top:20px;")
+  |#{movie}
