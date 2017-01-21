@@ -4,6 +4,8 @@ var mongoose = require('mongoose');
 var fs = require('fs');
 var bodyParser = require('body-parser');
 
+// static files
+app.use(express.static(__dirname + '/public'));
 // SET VIEW ENGINE
 app.set('view engine', 'pug');
 // body parser
