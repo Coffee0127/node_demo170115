@@ -23,11 +23,14 @@ app.set('views', __dirname + '/views');
 // var indexRoute = require('./routes/indexRoute.js');
 // app.user('/', indexRoute);
 
-// intercept all request
+// intercept all request - method1
 // app.all('/*', langCheck, function (req, res, next) {
 //     console.log('Intercepting requests ...');
 //     next();  // call next() here to move on to next middleware/router
 // });
+
+// intercept all request - method2
+// app.use(langCheck);
 
 // set route via foreach loop
 fs.readdirSync(__dirname + '/routes').forEach((fileName) => {
