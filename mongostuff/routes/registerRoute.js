@@ -7,7 +7,7 @@ var bcrypt = require('bcryptjs');
 router.get('/register', (req, res, next) => {
   if (!req.user) {
     var error = '';
-    res.render('register', { error: error});
+    res.render('register', { error: error });
   } else {
     res.redirect('/user');
   }
@@ -32,7 +32,7 @@ router.post('/register', (req, res, next) => {
       req.user = user;
       req.session.user = user;
       delete req.user.password;
-      req.locals.user = user;
+      app.locals.user = user;
       res.redirect('/user');
     }
   });

@@ -25,7 +25,7 @@ var userSchema = mongoose.model('users', userSchema);
 
 // SET UP SESSION
 app.use(sessions({
-  cookieNmae: 'session',
+  cookieName: 'session',
   secret: 'nodeclass',
   duration: 30 * 60 * 10000,
   httpOnly: true,   // doesn't let browser JS touch the cookie
@@ -40,7 +40,7 @@ app.use((req, res, next) => {
         req.user = user;
         delete req.user.password;
         req.session.user = user;
-        req.locals.user = user;
+        app.locals.user = user;
       }
       next();
     });
