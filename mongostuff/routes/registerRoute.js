@@ -32,7 +32,7 @@ router.post('/register', (req, res, next) => {
       req.user = user;
       req.session.user = user;
       delete req.user.password;
-      app.locals.user = user;
+      res.locals.user = user;
       res.redirect('/user');
     }
   });
