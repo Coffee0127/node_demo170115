@@ -3,6 +3,8 @@ var app = express();
 var mongoose = require('mongoose');
 var fs = require('fs');
 var bodyParser = require('body-parser');
+var sessions = require('client-sessions');
+var bcrypt = require('bcryptjs');
 
 // static files
 app.use(express.static(__dirname + '/public'));
@@ -16,6 +18,34 @@ app.use(bodyParser.urlencoded({ extended: false }));
 fs.readdirSync(__dirname + '/models').forEach((fileName) => {
   if (~fileName.indexOf('.js')) {
     require(__dirname + '/models/' + fileName);
+  }
+});
+
+var userSchema = mongoose.model('users', userSchema);
+
+// SET UP SESSION
+app.use(sessions({
+  cookieNmae: 'session',
+  secret: 'nodeclass',
+  duration: 30 * 60 * 10000,
+  httpOnly: true,   // doesn't let browser JS touch the cookie
+  secure: true,   // only use cookies over https
+  ephemral: true // delete this cookie after the browser is closed
+}));
+
+app.use((req, res, next) => {
+  if (req.session && req.session.user) {
+    userSchema.findOne({ email: req.session.user.email }, (err, user) => {
+      if (user) {
+        req.user = user;
+        delete req.user.password;
+        req.session.user = user;
+        req.locals.user = user;
+      }
+      next();
+    });
+  } else {
+    next();
   }
 });
 
